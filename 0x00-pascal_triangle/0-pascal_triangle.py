@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""This module contains a function that construct a pascal triangle
+"""
+
+
 def pascal_triangle(n):
     """Construct the pascal triangle of size (n)
         Args:

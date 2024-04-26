@@ -39,11 +39,8 @@ def minOperations(n):
             tempPrime = prime
             total_prime_factors += prime
             n = n / prime
-            continue
         else:
             tempPrime += 1
             if checkPrime(tempPrime, 2):
                 prime = tempPrime
-            else:
-                continue
     return total_prime_factors

@@ -37,7 +37,7 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
                      \d+)\]\s # matches the miliseconds in datetime
                      "GET\s/projects/260\sHTTP/1.1"\s # matches the route
                      (\d{3})\s # matches the status code
-                     ([\d]+) # matches the file size
+                     ([\d]+)$ # matches the file size
                      ''', re.VERBOSE)
 
 keep_track = 0

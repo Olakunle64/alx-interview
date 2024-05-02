@@ -55,14 +55,15 @@ if __name__ == "__main__":
                 if (
                     any(
                         int(ip) < 1 or int(ip) > 255 for ip in ips
-                        ) or status not in status_codes.keys()):
+                        ) or status not in status_codes.keys() or
+                        (file_size < 1 or file_size > 1024)):
                     continue
                 date = matched_groups[1]
-                try:
-                    # check if datetime is valid
-                    datetime.fromisoformat(date)
-                except Exception:
-                    continue
+                # try:
+                #     # check if datetime is valid
+                #     datetime.fromisoformat(date)
+                # except Exception:
+                #     continue
                 total_file_size += file_size
                 status_codes[status] += 1
                 keep_track += 1

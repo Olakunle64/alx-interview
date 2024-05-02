@@ -41,10 +41,9 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
                      ''', re.VERBOSE)
 
 if __name__ == "__main__":
-    keep_track = 1
+    keep_track = 0
     try:
-        while True:
-            line = input()
+        for line in sys.stdin
             match = pattern.search(line.strip())
             if match:
                 matched_groups = match.groups()
@@ -68,7 +67,7 @@ if __name__ == "__main__":
                 keep_track += 1
                 if keep_track == 10:
                     customPrint()
-                    keep_track = 1
+                    keep_track = 0
                 else:
                     customPrint()
                 # catch the keyboardinterrupt signal

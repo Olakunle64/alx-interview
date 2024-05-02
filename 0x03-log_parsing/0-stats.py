@@ -17,10 +17,10 @@ status_codes = {
 total_file_size = 0
 
 
-def customPrint(signal=0, frame=0):
+def customPrint():
     """A custom print"""
     print("File size: {}".format(total_file_size))
-    for key, value in status_codes.items():
+    for key, value in sorted(status_codes.items()):
         if value:
             print("{}: {}".format(key, value))
 
@@ -40,33 +40,36 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
                      ([\d]+)$ # matches the file size
                      ''', re.VERBOSE)
 
-keep_track = 0
-for line in sys.stdin:
-    match = pattern.search(line.strip())
-    if match:
-        matched_groups = match.groups()
-        ips = matched_groups[0].split(".")
-        status = matched_groups[2]
-        file_size = int(matched_groups[3])
-        if (
-            any(
-                int(ip) < 1 or int(ip) > 255 for ip in ips
-                ) or status not in status_codes.keys() or
-                (file_size < 1 or file_size > 1024)):
-            continue
-        date = matched_groups[1]
-        try:
-            # check if datetime is valid
-            datetime.fromisoformat(date)
-        except Exception:
-            continue
-        total_file_size += file_size
-        status_codes[status] += 1
-        keep_track += 1
-        if keep_track == 10:
-            customPrint()
-            keep_track = 0
-        else:
-            customPrint()
-        # catch the keyboardinterrupt signal
-    signal.signal(signal.SIGINT, customPrint)
+keep_track = 1
+try:
+    for line in sys.stdin:
+        match = pattern.search(line.strip())
+        if match:
+            matched_groups = match.groups()
+            ips = matched_groups[0].split(".")
+            status = matched_groups[2]
+            file_size = int(matched_groups[3])
+            if (
+                any(
+                    int(ip) < 1 or int(ip) > 255 for ip in ips
+                    ) or status not in status_codes.keys() or
+                    (file_size < 1 or file_size > 1024)):
+                continue
+            date = matched_groups[1]
+            try:
+                # check if datetime is valid
+                datetime.fromisoformat(date)
+            except Exception:
+                continue
+            total_file_size += file_size
+            status_codes[status] += 1
+            keep_track += 1
+            if keep_track == 10:
+                customPrint()
+                keep_track = 1
+            else:
+                customPrint()
+            # catch the keyboardinterrupt signal
+        # signal.signal(signal.SIGINT, customPrint)
+except (KeyboardInterrupt, EOFError):
+    customPrint()

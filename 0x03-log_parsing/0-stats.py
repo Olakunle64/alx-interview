@@ -40,9 +40,10 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
                      ([\d]+)$ # matches the file size
                      ''', re.VERBOSE)
 
+
 if __name__ == "__main__":
-    keep_track = 0
     try:
+        keep_track = 0
         while True:
             line = input()
             match = pattern.search(line.strip())
@@ -69,7 +70,7 @@ if __name__ == "__main__":
                 if keep_track == 10:
                     customPrint()
                     keep_track = 0
-                # catch the keyboardinterrupt signal
             # signal.signal(signal.SIGINT, customPrint)
+    # catch the keyboardinterrupt signal
     except (KeyboardInterrupt, EOFError):
         customPrint()

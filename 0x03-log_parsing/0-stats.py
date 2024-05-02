@@ -69,8 +69,6 @@ if __name__ == "__main__":
                 if keep_track == 10:
                     customPrint()
                     keep_track = 0
-                else:
-                    customPrint()
                 # catch the keyboardinterrupt signal
             # signal.signal(signal.SIGINT, customPrint)
     except (KeyboardInterrupt, EOFError):

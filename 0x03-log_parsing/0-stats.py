@@ -36,7 +36,7 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
                      \d{2}. # matches the seconds in datetime
                      \d+)\]\s # matches the miliseconds in datetime
                      "GET\s/projects/260\sHTTP/1.1"\s # matches the route
-                     (.*)\s # matches the status code
+                     (.*\s)? # matches the status code
                      ([\d]+)$ # matches the file size
                      ''', re.VERBOSE)
 
@@ -51,6 +51,8 @@ if __name__ == "__main__":
                 matched_groups = match.groups()
                 ips = matched_groups[0].split(".")
                 status = matched_groups[2]
+                if status:
+                    status = status.strip()
                 file_size = int(matched_groups[3])
                 if (
                     any(

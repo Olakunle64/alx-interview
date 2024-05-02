@@ -43,7 +43,7 @@ pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
 if __name__ == "__main__":
     keep_track = 0
     try:
-        for line in sys.stdin
+        for line in sys.stdin:
             match = pattern.search(line.strip())
             if match:
                 matched_groups = match.groups()

@@ -55,9 +55,8 @@ if __name__ == "__main__":
                 if (
                     any(
                         int(ip) < 1 or int(ip) > 255 for ip in ips
-                        ) or status not in status_codes.keys() or
+                        ) or
                         (file_size < 1 or file_size > 1024)):
-                    total_file_size += file_size
                     continue
                 date = matched_groups[1]
                 try:
@@ -66,7 +65,8 @@ if __name__ == "__main__":
                 except Exception:
                     continue
                 total_file_size += file_size
-                status_codes[status] += 1
+                if status in status_codes.keys():
+                    status_codes[status] += 1
                 keep_track += 1
                 if keep_track == 10:
                     customPrint()

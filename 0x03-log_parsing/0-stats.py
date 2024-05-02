@@ -21,7 +21,8 @@ def customPrint(signal=0, frame=0):
     """A custom print"""
     print("File size: {}".format(total_file_size))
     for key, value in status_codes.items():
-        print("{}: {}".format(key, value))
+        if value:
+            print("{}: {}".format(key, value))
 
 
 # regex pattern to match user input

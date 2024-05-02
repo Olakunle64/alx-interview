@@ -2,9 +2,7 @@
 """This module has a script that reads stdin line by
     line and computes metrics
 """
-import signal
 import re
-import sys
 from datetime import datetime
 
 
@@ -26,7 +24,7 @@ def customPrint() -> None:
 
 
 # regex pattern to match user input
-pattern = re.compile(r'''(^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s-
+pattern = re.compile(r'''(^[\w:.]+)\s-
                      # matches the ip address
                      \s\[([\d]{1,4}- # matches the year in datetime
                      \d{2}- # matches the month in datetime
@@ -54,18 +52,18 @@ if __name__ == "__main__":
                 if status:
                     status = status.strip()
                 file_size = int(matched_groups[3])
-                if (
-                    any(
-                        int(ip) < 1 or int(ip) > 255 for ip in ips
-                        ) or
-                        (file_size < 1 or file_size > 1024)):
-                    continue
+                # if (
+                #     any(
+                #         int(ip) < 1 or int(ip) > 255 for ip in ips
+                #         ) or
+                #         (file_size < 1 or file_size > 1024)):
+                #     continue
                 date = matched_groups[1]
-                try:
-                    # check if datetime is valid
-                    datetime.fromisoformat(date)
-                except Exception:
-                    continue
+                # try:
+                #     # check if datetime is valid
+                #     datetime.fromisoformat(date)
+                # except Exception:
+                #     continue
                 total_file_size += file_size
                 if status in status_codes.keys():
                     status_codes[status] += 1

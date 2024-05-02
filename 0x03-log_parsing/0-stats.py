@@ -67,4 +67,4 @@ for line in sys.stdin:
             customPrint()
             keep_track = 0
         # catch the keyboardinterrupt signal
-        signal.signal(signal.SIGINT, customPrint)
+    signal.signal(signal.SIGINT, customPrint)

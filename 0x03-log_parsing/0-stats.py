@@ -17,7 +17,7 @@ status_codes = {
 total_file_size = 0
 
 
-def customPrint():
+def customPrint() -> None:
     """A custom print"""
     print("File size: {}".format(total_file_size))
     for key, value in sorted(status_codes.items()):
@@ -55,8 +55,7 @@ if __name__ == "__main__":
                 if (
                     any(
                         int(ip) < 1 or int(ip) > 255 for ip in ips
-                        ) or status not in status_codes.keys() or
-                        (file_size < 1 or file_size > 1024)):
+                        ) or status not in status_codes.keys()):
                     continue
                 date = matched_groups[1]
                 try:

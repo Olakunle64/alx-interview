@@ -24,9 +24,9 @@ def customPrint() -> None:
 
 
 # regex pattern to match user input
-pattern = re.compile(r'''(^[\w:.]+)\s-
+pattern = re.compile(r'''(^[\w:.]+)\s?-
                      # matches the ip address
-                     \s\[([\d]{1,4}- # matches the year in datetime
+                     \s?\[([\d]{1,4}- # matches the year in datetime
                      \d{2}- # matches the month in datetime
                      \d{2}\s # matches the day in datetime
                      \d{2}: # matches the hour in datetime

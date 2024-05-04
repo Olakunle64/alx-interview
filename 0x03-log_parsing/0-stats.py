@@ -54,18 +54,18 @@ if __name__ == "__main__":
                 if status:
                     status = status.strip
                 file_size = int(matched_groups[3])
-                if (
-                    any(
-                        int(ip) < 1 or int(ip) > 255 for ip in ips
-                        ) or
-                        (file_size < 1 or file_size > 1024)):
-                    continue
+                # if (
+                #     any(
+                #         int(ip) < 1 or int(ip) > 255 for ip in ips
+                #         ) or
+                #         (file_size < 1 or file_size > 1024)):
+                #     continue
                 date = matched_groups[1]
-                try:
-                    # check if datetime is valid
-                    datetime.fromisoformat(date)
-                except Exception:
-                    continue
+                # try:
+                #     # check if datetime is valid
+                #     datetime.fromisoformat(date)
+                # except Exception:
+                #     continue
                 total_file_size += file_size
                 if status in status_codes.keys():
                     status_codes[status] += 1

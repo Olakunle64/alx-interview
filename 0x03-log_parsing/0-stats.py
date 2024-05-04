@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 ips = matched_groups[0].split(".")
                 status = matched_groups[2]
                 if status:
-                    status = status.strip
+                    status = status.strip()
                 file_size = int(matched_groups[3])
                 # if (
                 #     any(

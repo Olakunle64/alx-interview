@@ -4,35 +4,52 @@ from typing import List
 
 
 def validUTF8(data):
-    bytes_remaining = 0
+    """Determines if a given data set represents a valid UTF-8 encoding"""
+    # Number of bytes in the current UTF-8 character
+    n_bytes = 0
 
-    for byte in data:
-        # If no bytes remaining from previous sequence
-        if bytes_remaining == 0:
-            # Determine the number of bytes in the current sequence
-            if byte >> 7 == 0b0:
-                bytes_remaining = 0  # Single-byte character
-            elif byte >> 5 == 0b110:
-                bytes_remaining = 1  # Two-byte character
-            elif byte >> 4 == 0b1110:
-                bytes_remaining = 2  # Three-byte character
-            elif byte >> 3 == 0b11110:
-                bytes_remaining = 3  # Four-byte character
-            else:
-                return False  # Invalid byte
+    # Mask to check if the most significant bit is set or not
+    mask1 = 1 << 7
 
-            # Handle overlong encodings and out-of-range byte values
-            if (
-                bytes_remaining > 0 and byte >> (7 - bytes_remaining)
-                != (0b11111111 >> (8 - bytes_remaining))
-            ):
+    # Mask to check if the second most significant bit is set or not
+    mask2 = 1 << 6
+
+    # For each integer in the data array.
+    for num in data:
+
+        # Get the binary representation.
+        # We only need the least significant 8 bits
+        # for any given number.
+        bin_rep = format(num, '#010b')[-8:]
+
+        # If this is the case then we are to
+        # start processing a new UTF-8 character.
+        if n_bytes == 0:
+
+            # Get the number of 1s in the beginning of the string.
+            for bit in bin_rep:
+                if bit == '0':
+                    break
+                n_bytes += 1
+
+            # 1 byte characters
+            if n_bytes == 0:
+                continue
+
+            # Invalid scenarios according to the rules of the problem.
+            if n_bytes == 1 or n_bytes > 4:
                 return False
         else:
-            # Check if the byte is a continuation byte
-            if byte >> 6 != 0b10:
+
+            # Else, we are processing integers which represent
+            # bytes which are a part of a UTF-8 character. So,
+            # they must adhere to the pattern `10xxxxxx`.
+            if not (bin_rep[0] == '1' and bin_rep[1] == '0'):
                 return False
 
-            bytes_remaining -= 1
+        # We reduce the number of bytes to process by 1 after each integer.
+        n_bytes -= 1
 
-    # Ensure that all multi-byte sequences are complete
-    return bytes_remaining == 0
+    # This is for the case where we might not
+    # have the complete data for a particular UTF-8 character.
+    return n_bytes == 0

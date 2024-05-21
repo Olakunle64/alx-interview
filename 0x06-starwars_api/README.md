@@ -1,0 +1,1 @@
+A technical interview based on how to work with API(basically star wars API) in JavaScript.

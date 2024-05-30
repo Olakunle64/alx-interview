@@ -19,7 +19,7 @@ def sub(matrix, start, stop):
 #             matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
 def transpose_matrix(matrix):
-    """"ddd"""
+    """"get the transpose of a matrix"""
     col = 0
     n = len(matrix)
     i = 0

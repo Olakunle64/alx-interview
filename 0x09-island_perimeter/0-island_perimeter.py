@@ -9,9 +9,9 @@ def island_perimeter(grid):
     if not grid or not grid[0]:
         return 0
     perimeter = 0
-    row = 1
+    row = 0
     while row < len(grid):
-        col = 1
+        col = 0
         while col < len(grid[row]):
             if grid[row][col] == 1:
                 tempPerimeter = 4
@@ -34,7 +34,7 @@ def island_perimeter(grid):
                     if grid[row + 1][col] == 1:
                         tempPerimeter -= 1
                 perimeter += tempPerimeter
-                
+
             col += 1
         row += 1
     return perimeter

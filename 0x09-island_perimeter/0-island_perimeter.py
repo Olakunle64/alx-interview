@@ -22,12 +22,14 @@ def island_perimeter(grid):
                         tempPerimeter -= 1
 
                 # check left
-                if grid[row][col - 1] == 1:
-                    tempPerimeter -= 1
+                if col - 1 >= 0:
+                    if grid[row][col - 1] == 1:
+                        tempPerimeter -= 1
 
                 # check up
-                if grid[row - 1][col] == 1:
-                    tempPerimeter -= 1
+                if row - 1 >= 0:
+                    if grid[row - 1][col] == 1:
+                        tempPerimeter -= 1
 
                 # check down
                 if row + 1 < len(grid):
